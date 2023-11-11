@@ -6,13 +6,23 @@
     <title>My Birthday</title>
 </head>
 <body>
-    <p id="birthday"></p>
+    <div style="text-align: center;">
+        <h1 id="birthday"></h1>
+    </div>
+
+    <div style="text-align: center;">
+        <h1 id="days-left-to-become-x-year"></h1>
+    </div>
 
 <script type="text/JavaScript" src="main.js"></script>
 <script>
     const result = getYearsMonthsDays();
-    const paragraphElement = document.getElementById('birthday');
-    paragraphElement.innerHTML = result;
+    const birthDayElement = document.getElementById('birthday');
+    birthDayElement.innerHTML = result;
+
+    const daysLeft = getDaysToBecomeXYear(28);
+    const XElement = document.getElementById('days-left-to-become-x-year');
+    XElement.innerHTML = daysLeft;
 </script>
 
 </body>

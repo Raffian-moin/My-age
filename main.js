@@ -41,9 +41,6 @@ let days = 0;
 let months = 0;
 let years = 0;
 
-// let currentDay = 5;
-// let currentMonth = 1;
-// let currentYear = 2024;
 function setCurrentDate() {
     const currentDate = new Date();
     currentDay = currentDate.getDate();
@@ -85,5 +82,48 @@ function getYearsMonthsDays() {
     getDays();
     getMonths();
     getYears();
-    return `${years} years ${months} month(s) ${days} day(s)`;
+    return `I'm ${years} years ${months} month(s) ${days} day(s) old`;
 }
+
+function getDaysToBecomeXYear(yearCount) {
+  setCurrentDate();
+  yearToBeXYear = birthYear + yearCount;
+  
+  if (
+    (currentYear > yearToBeXYear) ||
+    (currentYear === yearToBeXYear && currentMonth > birthMonth) ||
+    (currentYear === yearToBeXYear && currentMonth === birthMonth && currentDay > birthDay)
+  ) {
+      return `I'm already past ${yearCount}`;
+  } else {
+    daysSpentOfTheCurrentAge = 0;
+    totalDayLeft = 0;
+
+    totalYears = yearToBeXYear - currentYear;
+
+    if (currentDay !== birthDay && currentMonth !== birthMonth) {
+      totalYears = totalYears - 1;
+    }
+
+    totalDayLeft = totalYears * 365;
+
+    if (currentMonth === birthMonth && currentDay > birthDay) {
+      daysSpentOfTheCurrentAge += currentDay - birthDay;
+    } else {
+      daysSpentOfTheCurrentAge += (currentDay + daysOfMonths[MonthsOfYears[birthMonth - 1]] - 23);
+    }
+
+    MonthsOfYears.forEach(function(currentValue, index){
+      if (currentMonth > birthMonth && index >= birthMonth && index < currentMonth - 1) {
+        daysSpentOfTheCurrentAge += daysOfMonths[MonthsOfYears[index]];
+      } else if (currentMonth <= birthMonth && ((index < currentMonth - 1) || (index + 1 > birthMonth))) {
+        daysSpentOfTheCurrentAge += daysOfMonths[MonthsOfYears[index]];
+      }
+    })
+
+    totalDayLeft += (365 - daysSpentOfTheCurrentAge);
+
+    return `${totalDayLeft} days left to be ${yearCount} years old`;
+  }
+}
+ 
